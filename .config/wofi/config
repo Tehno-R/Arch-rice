@@ -1,0 +1,13 @@
+show=drun
+width=70%
+height=50%
+#always_parse_args=true
+#show_all=false
+#term=kitty
+hide_scroll=true
+#print_command=false
+insensitive=false
+prompt=What are you looking for...?
+columns=2
+yoffset=150px
+xoffset=250px

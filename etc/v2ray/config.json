@@ -1,0 +1,58 @@
+{
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "port": 1080,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth", 
+        "udp": true
+      },
+      "tag": "socks-in"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "socks",
+      "settings": {
+        "servers": [
+          {
+            "address": "",					# Your proxy IP
+            "port": ,						# Your proxy Port
+            "users": [{"user": "", "pass": ""}]			# Your proxy user and password (delete if not necessary)
+          }
+        ]
+      },
+      "tag": "proxy-out"
+    },
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "proxy-out",
+        "ip": ["0.0.0.0/0", "::/0"]
+      }
+    ]
+  },
+  "dns": {
+    "servers": [
+      {
+	"address": "https://1.1.1.1/dns-querry",
+	"domains": [ "geosite:geolocation-!cn" ]
+      },
+      "8.8.8.8",
+      "1.1.1.1"
+    ]
+  }
+}

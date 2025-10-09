@@ -1,0 +1,5 @@
+[Service]
+ExecStart=/usr/bin/v2ray run -d "/etc/v2ray"
+
+[Install]
+WantedBy=default.target
