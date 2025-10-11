@@ -8,23 +8,48 @@ image_delay=100
 
 [opener]
 edit = [
-	{ run = 'nvim "$1"', desc = "Neo Vim", block = true, for = "unix"},
-	{ run = 'nano "$1"', desc = "Nano", block = true, for = "unix" },
+	{ run = 'nvim "$@"', desc = "Neo Vim", block = true, for = "unix"},
+	{ run = 'code "$@"', desc = "Code - OSS", block = false, for = "unix"},
+	{ run = 'nano "$@"', desc = "Nano", block = true, for = "unix" },
 ]
 
-open = [
-	{ run = 'imv "$1"', desc = "Imv", block = false, for = "unix"},
+edit_spec = [
+	{ run = 'code "$@"', desc = "Code - OSS", block = false, for = "unix"},
 ]
 
-play = [
-	{ run = 'ffplay -volume 30 -x 800 -y 400 -seek_interval 5 "$1"', desc = "FFPlay", block = true, for = "unix"},
+open_img = [
+	{ run = 'imv "$@"', desc = "Imv", block = false, for = "unix"},
+]
+
+extract_7z = [
+	{ run = '7z x "$@" -o"${@%.*}"', desc = "Extract", block = true, for = "unix"},
+]
+
+extract_tar = [
+	{ run = 'tar -xzvf "$@"', desc = "Extract", block = true, for = "unix"},
+]
+
+play_video = [
+	{ run = 'ffplay -volume 30 -seek_interval 5 "$@"', desc = "FFPlay", block = true, for = "unix"},
+]
+
+play_audio = [
+	{ run = 'ffplay -volume 30 -x 800 -y 600 -seek_interval 5 "$@"', desc = "FFPlay", block = true, for = "unix"},
 ]
 
 [open]
 rules = [
-	{ name = "*/", use = [ "reveal" ] },
+	{ name = "*.gif", use = [ "play_video", "reveal" ] },
+	{ name = "*.md", use = [ "edit_spec", "reveal" ] },
+	{ name = "*.{zip, rar, 7z}", use = [ "extract_7z", "reveal" ] },
+	{ name = "*.{tar, tag.gz}", use = [ "extract_tar", "reveal" ] },
 
+	{ mime = "image/*", use = [ "open_img", "reveal" ] },
+	{ mime = "video/*", use = [ "play_video", "reveal" ] },
+	{ mime = "audio/*", use = [ "play_audio", "reveal" ] },
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
-	{ mime = "image/*", use = [ "open", "reveal" ] },
-	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+
+
+	{ name = "*/", use = "reveal" },
+	{ name = "*", size = 0, use = [ "edit" , "reveal" ] },
 ]
