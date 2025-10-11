@@ -26,7 +26,7 @@ extract_7z = [
 ]
 
 extract_tar = [
-	{ run = 'tar -xzvf "$@"', desc = "Extract", block = true, for = "unix"},
+	{ run = 'mkdir -p "${@%.tar*}" && tar -xf "$@" -C "${@%.tar*}"', desc = "Extract", block = true, for = "unix"},
 ]
 
 play_video = [
@@ -41,14 +41,16 @@ play_audio = [
 rules = [
 	{ name = "*.gif", use = [ "play_video", "reveal" ] },
 	{ name = "*.md", use = [ "edit_spec", "reveal" ] },
-	{ name = "*.{zip, rar, 7z}", use = [ "extract_7z", "reveal" ] },
-	{ name = "*.{tar, tag.gz}", use = [ "extract_tar", "reveal" ] },
+	{ name = "*.zip", use = [ "extract_7z", "reveal" ] },
+	{ name = "*.rar", use = [ "extract_7z", "reveal" ] },
+	{ name = "*.7z", use = [ "extract_7z", "reveal" ] },
+	{ name = "*.gz", use = [ "extract_tar", "reveal" ] },
+	{ name = "*.tar", use = [ "extract_tar", "reveal" ] },
 
 	{ mime = "image/*", use = [ "open_img", "reveal" ] },
 	{ mime = "video/*", use = [ "play_video", "reveal" ] },
 	{ mime = "audio/*", use = [ "play_audio", "reveal" ] },
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
-
 
 	{ name = "*/", use = "reveal" },
 	{ name = "*", size = 0, use = [ "edit" , "reveal" ] },

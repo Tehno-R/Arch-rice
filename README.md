@@ -67,7 +67,7 @@ Check version: `yay --version`
 - `nvidia-prime` (run apps with Nvidia GPU's)
 - `hyprshot` (screnshots)
 - `eww`* (powerful tool for creation widgets)
-
+- `lazygit`
 
 # Guides (Optional)
 
