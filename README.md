@@ -8,7 +8,6 @@ Use `nmtui` for configure connection to Wi-Fi
 ## Copy settings, fonts and .desktop files
 copy entire `./.config` to `~/.config`\
 copy entire `./.local` to `~/.local`\
-copy `./etc` to `/etc`
 
 ## AUR
 Installation:
