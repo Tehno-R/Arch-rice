@@ -68,6 +68,16 @@ Check version: `yay --version`
 - `hyprshot` (screnshots)
 - `eww`* (powerful tool for creation widgets)
 - `lazygit`
+- `appimagelauncher`* (auto "install" AppImage)
+- `udisks2` + `ldm`* (auto mount)
+
+Fonts:
+    - `nerd-fonts`
+    - `noto-fonts`
+    - `noto-fonts-emoji`
+    - `noto-fonts-cjk`
+    - `ttf-dejavu`
+
 
 # Guides (Optional)
 
