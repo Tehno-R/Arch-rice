@@ -13,6 +13,11 @@ use = "Rolv-Apneseth/starship"
 rev = "a63550b"
 hash = "c2021386289a0cbb3e152a052f67c177"
 
+[[plugin.deps]]
+use = "TD-Sky/sudo"
+rev = "86205aa"
+hash = "9628b660afb192d32f2ea5f6634d3e72"
+
 [[flavor.deps]]
 use = "Mintass/rose-pine-moon"
 rev = "aa2d937"

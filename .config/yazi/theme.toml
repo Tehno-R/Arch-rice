@@ -1,3 +1,2 @@
 [flavor]
-light = "rose-pine-moon"
-dark = "rose-pine-moon"
+use = "rose-pine-moon"

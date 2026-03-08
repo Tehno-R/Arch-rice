@@ -1,0 +1,35 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$( dirname "$0")" && pwd )"
+FAVORITE_PATHS_PATH="$SCRIPT_DIR/favorite_paths"
+
+if [[ ! -e "$SCRIPT_DIR/favorite_paths" ]]; then
+	touch "$SCRIPT_DIR/favorite_paths"
+fi
+
+CONFIG_PATH="$({
+	cat "$FAVORITE_PATHS_PATH"
+	printf 'Add\nRemove'
+	} | rofi -dmenu)"
+
+case "$CONFIG_PATH" in
+	Add)
+		PATH_TO_ADD=$(rofi -p "Enter path/to/file" -dmenu)
+		if [[ -e "$PATH_TO_ADD" ]]; then
+			printf "$PATH_TO_ADD\n" >> "$FAVORITE_PATHS_PATH"
+		fi
+		;;
+	Remove)
+		PATH_TO_DELETE="$(cat "$FAVORITE_PATHS_PATH" | rofi -p "Choose path" -dmenu)"
+		sed -i "\|^$PATH_TO_DELETE$|d" "$FAVORITE_PATHS_PATH"
+		;;
+	*)
+		[[ -z "$CONFIG_PATH" ]] && exit 0
+
+		if [[ -e "$CONFIG_PATH" ]]; then
+			xdg-open "$CONFIG_PATH" > /dev/null 2>&1
+		else
+			rofi -e "File does not exist"
+		fi
+		;;
+esac

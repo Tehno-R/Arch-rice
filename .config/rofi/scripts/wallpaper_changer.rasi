@@ -1,0 +1,54 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( dirname "$0")"
+
+if [[ ! -z "$1" && -d "$1" ]]; then
+    WALLPAPERS_PATH="$1"
+else
+    WALLPAPERS_PATH="/home/tenshi/Wallpapers"
+fi
+
+
+SELECTED_OPTION="$({
+    printf '%s\n' 'Change default directory'
+    find "$WALLPAPERS_PATH" -maxdepth 1 -mindepth 1 -printf '%f\n' | sort -f
+} | rofi -dmenu)"
+
+
+case "$SELECTED_OPTION" in
+	'Change default directory')
+        NEW_PATH="$(rofi -dmenu -p 'Enter a new path')"
+		if [[ -d "$NEW_PATH" ]]; then
+            sed -i "0,/^WALLPAPERS_PATH=.*$/s|^.*WALLPAPERS_PATH.*$|WALLPAPERS_PATH=\"$NEW_PATH\"|" "$0"
+            # sleep 0.1 && $0
+            exec "$0"
+        else
+            if [[ ! -z "$NEW_PATH" ]]; then
+                rofi -e "Choosen not a directory!"
+            else
+                exec "$0"
+            fi
+        fi
+		;;
+	*)
+        if [[ -z "$SELECTED_OPTION" ]]; then
+            exit 0
+        fi
+        
+        if [[ -d "$SELECTED_OPTION" ]]; then
+            exec "$0" "$SELECTED_OPTION"
+        elif [[ -d "$WALLPAPERS_PATH/$SELECTED_OPTION" ]]; then
+            exec "$0" "$WALLPAPERS_PATH/$SELECTED_OPTION"
+        fi
+
+        if [[ -f "$SELECTED_OPTION" ]]; then
+            wallust run "$SELECTED_OPTION" && awww img "$SELECTED_OPTION"
+        elif [[ -f "$WALLPAPERS_PATH/$SELECTED_OPTION" ]]; then
+            wallust run "$WALLPAPERS_PATH/$SELECTED_OPTION" && awww img "$WALLPAPERS_PATH/$SELECTED_OPTION"
+        else
+            if [[ ! -z "$SELECTED_OPTION" ]]; then
+                rofi -e "Choosen not a file!"
+            fi
+        fi
+		;;
+esac

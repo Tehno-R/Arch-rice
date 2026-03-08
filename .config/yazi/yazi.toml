@@ -8,39 +8,49 @@ image_delay=100
 
 [opener]
 edit = [
-	{ run = 'nvim "$@"', desc = "Neo Vim", block = true, for = "unix"},
-	{ run = 'code "$@"', desc = "Code - OSS", block = false, for = "unix"},
-	{ run = 'nano "$@"', desc = "Nano", block = true, for = "unix" },
+	{ run = 'code -r "$(dirname "$@")" "$@"', desc = "Code - OSS", block = false, orphan = false, for = "unix"},
+	{ run = 'nvim "$@"', desc = "Neo Vim", block = true, orphan = false, for = "unix"},
+	{ run = 'nano "$@"', desc = "Nano", block = true, orphan = false, for = "unix" },
 ]
 
-edit_spec = [
-	{ run = 'code "$@"', desc = "Code - OSS", block = false, for = "unix"},
+edit_f = [
+	{ run = 'code -r "$@"', desc = "Code - OSS", block = true, orphan = true, for = "unix" },
 ]
 
 open_img = [
-	{ run = 'imv "$@"', desc = "Imv", block = false, for = "unix"},
+	{ run = 'imv "$@"', desc = "Imv", block = false, orphan = true, for = "unix"},
 ]
 
 extract_7z = [
-	{ run = '7z x "$@" -o"${@%.*}"', desc = "Extract", block = true, for = "unix"},
+	{ run = '7z x "$@" -o"${@%.*}"', desc = "Extract", block = true, orphan = false, for = "unix"},
 ]
 
 extract_tar = [
-	{ run = 'mkdir -p "${@%.tar*}" && tar -xf "$@" -C "${@%.tar*}"', desc = "Extract", block = true, for = "unix"},
+	{ run = 'mkdir -p "${@%.tar*}" && tar -xf "$@" -C "${@%.tar*}"', desc = "Extract", block = true, orphan = true, for = "unix"},
 ]
 
 play_video = [
-	{ run = 'ffplay -volume 30 -seek_interval 5 "$@"', desc = "FFPlay", block = true, for = "unix"},
+	{ run = 'ffplay -volume 30 -seek_interval 5 "$@"', desc = "FFPlay", block = true, orphan = true, for = "unix"},
 ]
 
 play_audio = [
-	{ run = 'ffplay -volume 30 -x 800 -y 600 -seek_interval 5 "$@"', desc = "FFPlay", block = true, for = "unix"},
+	{ run = 'ffplay -volume 30 -x 800 -y 600 -seek_interval 5 "$@"', desc = "FFPlay", block = true, orphan = true, for = "unix"},
+]
+
+book = [
+	{ run = 'zathura "$@"', desc = "Zathura", block = false, orphan = true, for = "unix"},
+]
+
+xdg_open = [
+	{ run = 'xdg-open "$@"', desc = "Open" },
 ]
 
 [open]
 rules = [
-	{ name = "*.gif", use = [ "play_video", "reveal" ] },
-	{ name = "*.md", use = [ "edit_spec", "reveal" ] },
+#	{ name = "*.gif", use = [ "play_video", "reveal" ] },
+#	{ name = "*.md", use = [ "edit_spec", "reveal" ] },
+#	{ name = "*.yuck", use = [ "edit_spec", "reveal" ] },
+	{ name = "*.pdf", use = [ "book", "reveal" ] },
 	{ name = "*.zip", use = [ "extract_7z", "reveal" ] },
 	{ name = "*.rar", use = [ "extract_7z", "reveal" ] },
 	{ name = "*.7z", use = [ "extract_7z", "reveal" ] },
@@ -52,6 +62,9 @@ rules = [
 	{ mime = "audio/*", use = [ "play_audio", "reveal" ] },
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 
-	{ name = "*/", use = "reveal" },
+	{ mime = "inode/x-empty", use = ["xdg_open", "reveal"] },
+
+	{ name = "*/", use = [ "reveal", "edit_f" ] },
 	{ name = "*", size = 0, use = [ "edit" , "reveal" ] },
 ]
+

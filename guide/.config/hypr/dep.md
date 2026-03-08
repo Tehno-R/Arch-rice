@@ -1,3 +1,0 @@
-swaync
-pamixer
-playerctl
