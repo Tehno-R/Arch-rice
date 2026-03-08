@@ -1,6 +1,6 @@
 # Fisrt start up
 
-Use `nmtui` for connect to Wi-Fi
+Use `nmtui` for configure connection to Wi-Fi
 
 
 # Main install
@@ -36,18 +36,21 @@ Check version: `yay --version`
     - `imagemagick`
     - `wl-clipboard`
 - `fish`
-- `wofi`
+- `rofi`
 - `pipewire`
     - `pipewirepulse`
     - `pavucontrol`
+    - `pamixer`
+    - `playerctl`
 - `nvim`
 
 - `v2ray` (VPN client)
     - `tun2socks`* (encode data to SOCKS5)
 - `fastfetch`
-- `starship` (shell welcone customizer)
-- `hyprpicker` (pipette)
-- `imv` (photo viever)\
+- `onefetch` (Git summary)
+- `starship` (Shell welcone customizer)
+- `hyprpicker` (Pipette)
+- `imv` (Photo viever)\
     for support diffrent formats:
     - `libtiff`
     - `libpng`
@@ -56,20 +59,21 @@ Check version: `yay --version`
     - `libnsgif`
     - `libheif`
     - `libjxl`
-- `spotify-launcher`* (aka Spotify)
-    - `Spicetify`* (spotify customization)
+- `spotify-launcher`* (Aka Spotify)
+    - `Spicetify`* (Spotify customization)
 - `Discord`
-    - `Vencord` (discord customization) (use offical site script)
-- `man` (get software documentation) (aka `man-db` or `mandoc`)
-- `brightnessctl` (brightness control)
+    - `Vencord` (Discord customization) (use offical site script)
+- `man` (Get software documentation) (aka `man-db` or `mandoc`)
+- `brightnessctl` (Brightness control)
 - `socat`
 - `exfat-utils` (exFAT support)
-- `nvidia-prime` (run apps with Nvidia GPU's)
-- `hyprshot` (screnshots)
-- `eww`* (powerful tool for creation widgets)
+- `nvidia-prime` (Run apps with Nvidia GPU's)
+- `hyprshot` (Screenshots)
 - `lazygit`
-- `appimagelauncher`* (auto "install" AppImage)
-- `udisks2` + `ldm`* (auto mount)
+- `appimagelauncher`* (Auto "install" AppImage)
+- `udisks2` + `ldm`* (Auto mount)
+- `swaync` (System of notification)
+- `nushell`
 
 Fonts:
     - `nerd-fonts`
@@ -83,9 +87,6 @@ Fonts:
 
 ## Hyprland Nvidia
 Instruction how to run hyprland with Nvidia GPU in: `./guide/hypr_nvidia/`
-
-## VPN (SOCKS5 Proxy)
-Instruction how to configure your proxy in `./guide/vpn/`
 
 ## Firefox Customization 
 Instruction how to customizr your firefox in `./etc/firefox/`
